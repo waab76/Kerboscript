@@ -1,5 +1,6 @@
 DECLARE GLOBAL prev_sas TO False.
 DECLARE GLOBAL PREV_SOLID_FUEL TO STAGE:SOLIDFUEL.
+DECLARE GLOBAL PREV_MAX_THRUST TO SHIP:MAXTHRUST.
 
 FUNCTION take_control {
   CLEARSCREEN.
@@ -25,18 +26,21 @@ FUNCTION do_stage {
 
   // Stage if necessary
   IF (STAGE:LIQUIDFUEL + STAGE:OXIDIZER +STAGE:SOLIDFUEL < 1) OR
-     (STAGE:SOLIDFUEL < 1 AND prev_solid_fuel > 1) {
+     (STAGE:SOLIDFUEL < 1 AND prev_solid_fuel > 1) OR
+     (SHIP:MAXTHRUST < prev_max_thrust) {
     IF autostage {
+      SET prev_thrott TO THROTTLE.
       SET THROTTLE TO 0.
       WAIT 0.5.
       STAGE.
       WAIT 0.5.
-      SET THROTTlE TO thrott.
+      SET THROTTlE TO prev_thrott.
     } ELSE {
-      PRINT "TIME TO STAGE" AT (0,0).
+      // PRINT "TIME TO STAGE" AT (0,0).
     }
   }
   SET prev_solid_fuel TO STAGE:SOLIDFUEL.
+  Set prev_max_thrust TO SHIP:MAXTHRUST.
 }
 
 // pitch_of_vector returns the pitch of the vector(number range -90 to  90)
