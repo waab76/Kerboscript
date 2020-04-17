@@ -67,7 +67,7 @@ FUNCTION gravity_turn {
     ELSE IF runmode = 30 {
       IF pitch_of_vector(prograde_vector) < (90 - initial_pitchover) {
         LOCK pitch TO pitch_of_vector(prograde_vector).
-        SET runmode TO 35.
+        SET runmode TO 40.
       }
     }
     // Raise Apoapsis to a good height
@@ -84,7 +84,7 @@ FUNCTION gravity_turn {
       IF SHIP:APOAPSIS > target_altitude {
         SET thrott TO 0.
         SET runmode TO 50.
-      } ELSE IF SHIP:PERIAPSIS > (SHIP:BODY:ATM:HEIGHT/4) AND
+      } ELSE IF SHIP:PERIAPSIS > (0) AND
         pitch_of_vector(prograde_vector) < 5 {
           SET runmode to 45.
       }
