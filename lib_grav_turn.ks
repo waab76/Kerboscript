@@ -59,6 +59,7 @@ FUNCTION gravity_turn {
     // Pitch Over
     ELSE IF runmode = 20 {
       IF SHIP:VERTICALSPEED > 50 {
+        GEAR OFF.
         SET pitch TO (90 - initial_pitchover).
         SET runmode TO 30.
       }

@@ -45,8 +45,33 @@ FUNCTION do_stage {
 
 // pitch_of_vector returns the pitch of the vector(number range -90 to  90)
 FUNCTION pitch_of_vector {
-  PARAMETER vecT.
-	RETURN 90 - VANG(SHIP:UP:VECTOR, vecT).
+  PARAMETER vect.
+	RETURN 90 - VANG(SHIP:UP:VECTOR, vect).
+}
+
+//Returns value of compass heading in degrees
+FUNCTION compass_of_vector {
+    parameter vect.
+
+    // What direction is up, north and east right now, as versor
+    set up_versor to SHIP:up:vector.
+    set north_versor to SHIP:north:vector.
+    set east_versor to  vcrs(up_versor, north_versor).
+
+    // east component of vector:
+    set east_vel to vdot(vect, east_versor).
+
+    // north component of vector:
+    set north_vel to vdot(vect, north_versor).
+
+    // inverse trig to take north and east components and make an angle:
+    set compass to arctan2(east_vel, north_vel).
+
+    if compass < 0 {
+        set compass to compass + 360.
+    }
+
+    return compass.
 }
 
 FUNCTION curr_semi_major_axis {
