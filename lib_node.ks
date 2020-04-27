@@ -2,7 +2,7 @@ RUN ONCE lib_util.
 
 function exec_node {
   CLEARSCREEN.
-  PARAMETER autostage IS True.
+  PARAMETER autostage IS False.
 
   take_control().
   set node to nextnode.

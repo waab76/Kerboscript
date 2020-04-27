@@ -20,8 +20,9 @@ FUNCTION hoverslam {
 
   SET runmode TO 10.
 
-  SET run_status TO "Descending".
-  WAIT UNTIL trueRadar < 5000.
+  LOCK STEERING TO SRFRETROGRADE.
+  PRINT "Descending...".
+  WAIT UNTIL trueRadar < 10000.
 
   UNTIL runmode = 0 {
     // Kill horizontal velocity
